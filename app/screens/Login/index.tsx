@@ -48,7 +48,6 @@ const Login: React.FC<IProps> = (props: IProps) => {
   //const onForgot = () => NavigationService.navigate('RestoreAccount');
   // const onRegistration = () => NavigationService.navigate('Registration');
 
-  /*
   const handleChange = (val: string, fieldName: string) => {
     seTuserState(prev => {
       const varPr = { ...prev };
@@ -83,7 +82,7 @@ const Login: React.FC<IProps> = (props: IProps) => {
     }
     return err;
   };
-*/
+
   const onRegistration = () => navigation.navigate('Registration');
   const onRestoreAccount = () => navigation.navigate('RestoreAccount');
 
@@ -148,14 +147,15 @@ const Login: React.FC<IProps> = (props: IProps) => {
   };
 
   const submit = async () => {
-    /* const err = validation();
+    const err = validation();
     console.log(userState);
 
     if (err) {
     } else {
       signin(userState);
       //  onLogin();
-    }*/
+    }
+    /*
     await RNFS.readFile(path, 'utf8')
       .then(data => {
         postFileBalanceToCheck(JSON.parse(data));
@@ -166,7 +166,7 @@ const Login: React.FC<IProps> = (props: IProps) => {
           duration: 3000,
           animationType: 'zoom-in',
         });
-      });
+      });*/
   };
 
   const navigateToRegistration = () => {
@@ -183,24 +183,24 @@ const Login: React.FC<IProps> = (props: IProps) => {
             textStyle={{ color: '#3498db' }}
           />
           <Text style={styles.signInText}>{I18n.t('authorization')}</Text>
-          {/*
-          <View style={{width: '90%'}}>
+
+          <View style={{ width: '90%' }}>
             <Validation
-              text={'Имя пользователя'}
+              text={'Email'}
               visible={validObj.username}
               errText={I18n.t('incorrect_username')}
             />
           </View>
 
           <TextInput
-            placeholder="Максим"
+            placeholder="email@gmail.com"
             mode="outlined"
             style={styles.textInput}
             onChangeText={val => handleChange(val, 'username')}
             right={<TextInput.Icon name={require('../../assets/email.png')} />}
             value={userState.data.username}
           />
-          <View style={{width: '90%', marginTop: 20}}>
+          <View style={{ width: '90%', marginTop: 20 }}>
             <Validation
               text={I18n.t('password')}
               visible={validObj.password}
@@ -221,31 +221,6 @@ const Login: React.FC<IProps> = (props: IProps) => {
             secureTextEntry={passwordShow}
             value={userState.data.password}
           />
-          */}
-          <Button
-            icon="upload"
-            style={{
-              width: '90%',
-              marginTop: 20,
-              marginBottom: 30,
-            }}
-            onPress={async () => {
-              try {
-                const pickerResult = await DocumentPicker.pickSingle({
-                  presentationStyle: 'fullScreen',
-                  copyTo: 'cachesDirectory',
-                  type: types.allFiles,
-                });
-                setResult([pickerResult]);
-              } catch (e) {
-                handleError(e);
-              }
-            }}
-            mode="contained">
-            <Text style={{ textAlign: 'center', color: '#000' }}>
-              {I18n.t('choose_file')}
-            </Text>
-          </Button>
 
           <Button
             style={{ width: '90%', marginTop: 20, backgroundColor: '#333333' }}

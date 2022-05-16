@@ -14,6 +14,7 @@
   "dependencies": {
     "@react-native-clipboard/clipboard": "^1.8.5",
     "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/geolocation": "^2.1.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^5.x",
     "@react-navigation/material-bottom-tabs": "^5.x",
@@ -32,6 +33,7 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-i18n": "^2.0.15",
     "react-native-loading-spinner-overlay": "^2.0.0",
+    "react-native-maps": "^0.31.0",
     "react-native-mask-input": "^1.1.1",
     "react-native-modal": "^13.0.0",
     "react-native-paper": "^4.8.1",
@@ -41,7 +43,6 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.2.0",
     "react-native-segmented-control-tab": "^4.0.0",
-    "react-native-sodium": "^0.4.0",
     "react-native-toast-notifications": "^3.2.2",
     "react-native-vector-icons": "^8.1.0",
     "react-redux": "^7.2.4",

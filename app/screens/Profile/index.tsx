@@ -18,7 +18,6 @@ import LocalizationModal from './localizationModal';
 import PasswordEditModal from './passwordEditModal';
 import AdressBookModal from './adressBookModal';
 import DraftModal from './draftModal';
-import KeysModal from './keys';
 import ArchiveModal from './archiveModal';
 import GoodsContext from '../../context/goods/GoodsContext';
 
@@ -58,7 +57,6 @@ const ProfileScreen: React.FC<IState> = ({ navigation }: IState) => {
   const [modelDraft, seTmodelDraft] = useState(false);
   const [modelArchive, seTmodelArchive] = useState(false);
   const [modelBalance, seTmodelBalance] = useState(false);
-  const [modelWallet, seTmodelWallet] = useState(false);
 
   const onLogout = () => {
     setmodel(true);
@@ -189,15 +187,7 @@ const ProfileScreen: React.FC<IState> = ({ navigation }: IState) => {
                   contentStyle={{ flexDirection: 'row-reverse' }}>
                   {I18n.t('balance')}
                 </Button>
-                <Button
-                  color="#000"
-                  onPress={() => seTmodelWallet(!modelWallet)}
-                  uppercase={false}
-                  style={{}}
-                  icon="chevron-right"
-                  contentStyle={{ flexDirection: 'row-reverse' }}>
-                  {I18n.t('keys')}
-                </Button>
+
                 <Button
                   color="#000"
                   onPress={() => seTmodelArchive(!modelArchive)}
@@ -248,14 +238,6 @@ const ProfileScreen: React.FC<IState> = ({ navigation }: IState) => {
                 model={modelDraft}
                 noPressed={() => seTmodelDraft(false)}
               />
-
-              {modelWallet && (
-                <KeysModal
-                  model={modelWallet}
-                  cancelPressed={() => seTmodelWallet(false)}
-                  themeReducer={{ isDark: false }}
-                />
-              )}
 
               <ArchiveModal
                 okPressed={modelOkPressed}

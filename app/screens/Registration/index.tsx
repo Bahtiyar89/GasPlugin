@@ -10,7 +10,7 @@ import {
 //import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-native-modal';
 import basex from 'bs58-rn';
-import Sodium from 'react-native-sodium';
+
 import Buffer from 'buffer';
 
 //import * as loginActions from 'app/store/actions/loginActions';
@@ -55,23 +55,7 @@ const Registration: React.FC<IProps> = (props: IProps) => {
     postRegisterBalanceToCheck(walletKeys, navigation);
   };
 
-  const generateKeys = async () => {
-    const ALPHABET =
-      '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-    const base58 = basex(ALPHABET);
-    let key = await Sodium.crypto_sign_keypair();
-    console.log('keyR', key);
-    let encoded_SK_Base58 = base58.encode(Buffer.Buffer.from(key.sk, 'base64'));
-    let encoded_PK_Base58 = base58.encode(Buffer.Buffer.from(key.pk, 'base64'));
-    const obj = {};
-    obj['sk'] = encoded_SK_Base58;
-    obj['pk'] = encoded_PK_Base58;
-    seTwalletKeys({
-      ...walletKeys,
-      sk: encoded_SK_Base58,
-      pk: encoded_PK_Base58,
-    });
-  };
+  const generateKeys = async () => {};
 
   return (
     <SafeAreaView>

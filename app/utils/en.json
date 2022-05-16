@@ -2,8 +2,8 @@
   "TabNav": {
     "main": "Main",
     "calculator": "Calculator",
-    "shipments": "My shipments",
-    "chat": "Chat",
+    "trips": "Trips",
+    "bookmarks": "Bookmarks",
     "profile": "Profile"
   },
   "Home": "Home",

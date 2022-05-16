@@ -46,10 +46,10 @@ const Home: React.FC = () => {
           name="MyShipments"
           component={MyShipmentsScreen}
           options={{
-            tabBarLabel: I18n.t('TabNav.shipments'),
+            tabBarLabel: I18n.t('TabNav.trips'),
             tabBarIcon: () => (
               <Image
-                source={require('../../assets/my_shipment.png')} //Change your icon image here
+                source={require('../../assets/car.png')} //Change your icon image here
                 style={{ height: 25, width: 25 }}
               />
             ),
@@ -59,10 +59,10 @@ const Home: React.FC = () => {
           name="ChatScreen"
           component={ChatScreen}
           options={{
-            tabBarLabel: I18n.t('TabNav.chat'),
+            tabBarLabel: I18n.t('TabNav.bookmarks'),
             tabBarIcon: () => (
               <Image
-                source={require('../../assets/chat.png')} //Change your icon image here
+                source={require('../../assets/bookmarks.png')} //Change your icon image here
                 style={{ height: 25, width: 25 }}
               />
             ),

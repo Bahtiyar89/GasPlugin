@@ -30,7 +30,6 @@ import {
   CLOSE_MODAL_BALANCE,
   REGISTER_SUCCESS,
 } from '../types';
-import Sodium from 'react-native-sodium';
 import Base64 from 'base64-js';
 const AuthState = props => {
   const toast = useToast();
@@ -94,157 +93,7 @@ const AuthState = props => {
       });
   };
 
-  const transactionExecute = async (
-    transactionPackagedStr,
-    file,
-    navigation,
-  ) => {
-    console.log('transactionPackagedStr', transactionPackagedStr);
-    console.log('file exx', file);
-    const ALPHABET =
-      '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-    const base58 = basex(ALPHABET);
-
-    let decodedFoBase58 = base58.decode(
-      '43b7AeXY6zHDv8tK2PqZCbXH3CcvygEWxKQxzw6SEmX8u6xqCAHr5BbEekSwkpVJCw1CTAs38M2i5myox7tyU3SA',
-    );
-    const decryptedMessageFromByteArray = Base64.fromByteArray(decodedFoBase58);
-    console.log('dec', decryptedMessageFromByteArray);
-
-    let decoded = base58.decode(transactionPackagedStr);
-    const decrypted = Base64.fromByteArray(decoded);
-    console.log('dec 333', decrypted);
-
-    let dt = await Sodium.crypto_sign_detached(
-      decrypted,
-      decryptedMessageFromByteArray,
-    );
-    console.log('dt 333: ', dt);
-
-    let signature = base58.encode(Buffer.Buffer.from(dt, 'base64'));
-    console.log('signature:: ', signature);
-    doPost('api/transaction/Execute', {
-      authKey: '',
-      NetworkAlias: 'MainNet',
-      MethodApi: 'TransferCs',
-      PublicKey: 'DjUaijUD1tavJyryfhngbvrJpgEdHjihtfK95yhteNWN',
-      ReceiverPublicKey: file.pk,
-      Amount: 1,
-      Fee: 0.2,
-      UserData: '',
-      TransactionSignature: signature,
-    })
-      .then(({ data }) => {
-        console.log('daaattaaa:', data);
-        dispatch({ type: LOADING, payload: false });
-        if (data.success) {
-          let path =
-            Platform.OS === 'ios'
-              ? RNFS.MainBundlePath + '/keys.txt'
-              : RNFS.ExternalDirectoryPath + '/keys.txt';
-          RNFS.writeFile(path, JSON.stringify(file), 'utf8')
-            .then(success => {
-              let path = path.substring(path.indexOf('A'));
-            })
-            .catch(err => {
-              console.log(err.message);
-            });
-          toast.show(
-            `Ваши ключи успешно сохранены путь к ключам ${
-              I18n.t('file_saved_under_name') + path
-            } `,
-            {
-              type: 'success',
-              duration: 6000,
-              animationType: 'zoom-in',
-            },
-          );
-          dispatch({
-            type: REGISTER_SUCCESS,
-            payload: { data, navigation, file },
-          });
-        } else {
-          toast.show(data.message, {
-            type: 'warning',
-            duration: 3000,
-            animationType: 'zoom-in',
-          });
-        }
-      })
-      .catch(error => {
-        dispatch({ type: LOADING, payload: false });
-        toast.show(error.message, {
-          type: 'warning',
-          duration: 3000,
-          animationType: 'zoom-in',
-        });
-      });
-  };
-  const transactionPack = async (file, navigation) => {
-    doPost('api/transaction/pack', {
-      PublicKey: 'DjUaijUD1tavJyryfhngbvrJpgEdHjihtfK95yhteNWN',
-      ReceiverPublicKey: file.pk,
-      networkAlias: 'MainNet',
-      authKey: '',
-      MethodApi: 'TransferCs',
-      Amount: 1,
-      Fee: 0.2,
-      UserDat: '',
-    })
-      .then(({ data }) => {
-        console.log('data:Pack ', data);
-        if (data.success) {
-          transactionExecute(
-            data.dataResponse.transactionPackagedStr,
-            file,
-            navigation,
-          );
-        } else {
-          dispatch({ type: LOADING, payload: false });
-          toast.show(data.message, {
-            type: 'warning',
-            duration: 3000,
-            animationType: 'zoom-in',
-          });
-        }
-      })
-      .catch(error => {
-        dispatch({ type: LOADING, payload: false });
-        toast.show(error.message, {
-          type: 'warning',
-          duration: 3000,
-          animationType: 'zoom-in',
-        });
-      });
-  };
-
-  const postRegisterBalanceToCheck = async (file, navigation) => {
-    dispatch({ type: LOADING, payload: true });
-    doPost('api/Monitor/GetBalance', {
-      PublicKey: file.pk,
-      networkAlias: 'MainNet',
-    })
-      .then(({ data }) => {
-        if (data.success) {
-          transactionPack(file, navigation);
-        } else {
-          dispatch({ type: LOADING, payload: false });
-          toast.show(data.message, {
-            type: 'warning',
-            duration: 3000,
-            animationType: 'zoom-in',
-          });
-        }
-      })
-      .catch(error => {
-        dispatch({ type: LOADING, payload: false });
-        toast.show(error.message, {
-          type: 'warning',
-          duration: 3000,
-          animationType: 'zoom-in',
-        });
-      });
-  };
+  const postRegisterBalanceToCheck = async (file, navigation) => {};
 
   //logout
   const signOut = async () => {
@@ -261,7 +110,14 @@ const AuthState = props => {
 
   //Login User
   const signin = async FormData => {
-    dispatch({ type: LOADING, payload: true });
+    //  dispatch({ type: LOADING, payload: true });
+    console.log('FormData: ', FormData.data);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: FormData.data,
+    });
+    //   dispatch({ type: LOADING, payload: false });
+    /*
     doPost(`v1/account/login/`, FormData.data)
       .then(({ data }) => {
         dispatch({ type: LOADING, payload: false });
@@ -277,7 +133,7 @@ const AuthState = props => {
           animationType: 'zoom-in',
         });
         dispatch({ type: LOADING, payload: false });
-      });
+      });*/
   };
 
   //Register user

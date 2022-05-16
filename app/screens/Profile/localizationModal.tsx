@@ -6,6 +6,7 @@ import { Dropdown } from 'sharingan-rn-modal-dropdown';
 
 import styles from './styles';
 import I18n from '../../../i18';
+import ThemeController from '../../components/ThemeController';
 
 interface IState {
   model: boolean;
@@ -106,6 +107,7 @@ const ProfileEditModal: React.FC<IState> = ({
                 ? I18n.t('by_default_language_russian')
                 : I18n.t('by_default_language_english')}
             </Text>
+            <ThemeController />
           </View>
 
           <View style={styles.modelYesNo}>
